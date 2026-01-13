@@ -2,10 +2,10 @@ import { Croissant } from "lucide-react";
 
 const TransactionTab = () => {
   return (
-    <div className="w-full flex gap-3 items-center justify-between glassy-border-small-radius bg-white/5 backdrop-blur-xl py-4 px-4">
+    <div className="w-full flex gap-3 items-center justify-between bg-white dark:bg-neutral-900 rounded-2xl py-4 px-4">
       <div className="flex gap-3 items-center">
         {/* Circle Icon */}
-        <div className="w-13 h-13 flex items-center justify-center rounded-full bg-white">
+        <div className="w-13 h-13 flex items-center justify-center rounded-full bg-neutral-100">
           <Croissant color="black" />
         </div>
         {/* Category and Card Type */}

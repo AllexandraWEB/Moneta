@@ -48,8 +48,8 @@
 }
 
 :root {
-  --background: #0C0C0C;
-  --foreground: white;
+  --background: #ffffff;
+  --foreground: rgb(0, 0, 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -83,15 +83,15 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: #0e0e0e;
+  --foreground: #dfdfdf;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.87 0.00 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: #242424;
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -118,7 +118,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 text-white;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
@@ -410,7 +410,7 @@
   2xl:text-[14px] 2xl:leading-5;
 }
 
-/* White Glassy Border */
+/* Glassy Border - Adapts to theme */
 .glassy-border::before {
   content: "";
   position: absolute;
@@ -419,8 +419,8 @@
   border-radius: 30px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.608),
-    rgba(255, 255, 255, 0.146)
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1)
   );
 
   /* Only shows the border area */
@@ -434,7 +434,16 @@
   z-index: 1;
 }
 
-/* White Glassy Border - No Radius */
+/* White borders for dark theme */
+.dark .glassy-border::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.608),
+    rgba(255, 255, 255, 0.146)
+  );
+}
+
+/* Glassy Border Small Radius - Adapts to theme */
 .glassy-border-small-radius::before {
   content: "";
   position: absolute;
@@ -443,8 +452,8 @@
   border-radius: 15px;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.608),
-    rgba(255, 255, 255, 0.146)
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1)
   );
 
   /* Only shows the border area */
@@ -456,4 +465,13 @@
 
   pointer-events: none;
   z-index: 1;
+}
+
+/* White borders for dark theme */
+.dark .glassy-border-small-radius::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.608),
+    rgba(255, 255, 255, 0.146)
+  );
 }

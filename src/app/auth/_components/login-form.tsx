@@ -43,7 +43,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black bg-bottom px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background bg-bottom px-4">
       <div className="w-full max-w-md">
         <div className="p-4">
           <div className="mb-8 text-center">

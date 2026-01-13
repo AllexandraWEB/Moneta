@@ -1,5 +1,4 @@
 import { Home, Wallet, Send, PieChart, User } from 'lucide-react'
-import React from 'react'
 
 const Navigation = () => {
   return (
@@ -7,14 +6,14 @@ const Navigation = () => {
       <div className="flex items-center justify-between relative">
         {/* Home */}
         <button className="flex flex-col items-center gap-1">
-          <Home size={24} className="text-white/70" />
-          <span className="text-xs text-white/70">Home</span>
+          <Home size={24} className="text-black dark:text-white/70" />
+          <span className="text-xs text-black dark:text-white/70">Home</span>
         </button>
 
         {/* Accounts */}
         <button className="flex flex-col items-center gap-1">
-          <Wallet size={24} className="text-white/70" />
-          <span className="text-xs text-white/70">Accounts</span>
+          <Wallet size={24} className="text-black dark:text-white/70" />
+          <span className="text-xs text-black dark:text-white/70">Accounts</span>
         </button>
 
         {/* Spacer for center button */}
@@ -27,14 +26,14 @@ const Navigation = () => {
 
         {/* Statistics */}
         <button className="flex flex-col items-center gap-1">
-          <PieChart size={24} className="text-white/70" />
-          <span className="text-xs text-white/70">Statistics</span>
+          <PieChart size={24} className="text-black dark:text-white/70" />
+          <span className="text-xs text-black dark:text-white/70">Statistics</span>
         </button>
 
         {/* Profile */}
         <button className="flex flex-col items-center gap-1">
-          <User size={24} className="text-white/70" />
-          <span className="text-xs text-white/70">Profile</span>
+          <User size={24} className="text-black dark:text-white/70" />
+          <span className="text-xs text-black dark:text-white/70">Profile</span>
         </button>
       </div>
     </nav>
