@@ -89,7 +89,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
+  --primary: oklch(0.87 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: #242424;
   --secondary-foreground: oklch(0.985 0 0);
@@ -114,6 +114,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  /* Custom Color */
+  --color-dark-background: #0e0e0e;
 }
 
 @layer base {
@@ -417,16 +422,10 @@
   inset: 0;
   padding: 1px;
   border-radius: 30px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0.1)
-  );
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
 
   /* Only shows the border area */
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 
@@ -450,16 +449,10 @@
   inset: 0;
   padding: 1px;
   border-radius: 15px;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0.1)
-  );
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
 
   /* Only shows the border area */
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 

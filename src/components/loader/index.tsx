@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface MonetaLoaderProps {
-  theme?: 'light' | 'dark';
+  theme?: "light" | "dark";
   onLoadingComplete?: () => void;
   duration?: number;
 }
 
 const MonetaLoader: React.FC<MonetaLoaderProps> = ({
-  theme = 'dark',
+  theme = "dark",
   onLoadingComplete,
   duration = 3000,
 }) => {
@@ -23,8 +23,7 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
     return () => clearTimeout(timer);
   }, [duration, onLoadingComplete]);
 
-  const bgColor = theme === 'dark' ? '#0e0e0e' : '#ffffff';
-  const textColor = theme === 'dark' ? '#ffffff' : '#0e0e0e';
+  const textColor = theme === "dark" ? "#ffffff" : "#0e0e0e";
 
   const circleVariants = {
     hidden: {
@@ -49,15 +48,15 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
   };
 
   const letterVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 20,
-      filter: 'blur(10px)',
+      filter: "blur(10px)",
     },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      filter: 'blur(0px)',
+      filter: "blur(0px)",
       transition: {
         delay: 0.8 + i * 0.08,
         duration: 0.8,
@@ -67,7 +66,7 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
     exit: {
       opacity: 0,
       y: -20,
-      filter: 'blur(10px)',
+      filter: "blur(10px)",
       transition: {
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
@@ -76,7 +75,7 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
   };
 
   const containerVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
     },
     visible: {
@@ -95,7 +94,7 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
     },
   };
 
-  const letters = 'MONETA'.split('');
+  const letters = "MONETA".split("");
 
   return (
     <AnimatePresence>
@@ -104,8 +103,7 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-9999 flex items-center justify-center overflow-hidden"
-          style={{ backgroundColor: bgColor }}
+          className="fixed inset-0 z-9999 flex items-center justify-center overflow-hidden bg-background"
         >
           <div className="relative flex items-center justify-center">
             <motion.div
@@ -113,14 +111,13 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="absolute rounded-full"
+              className="absolute rounded-full bg-dark-background dark:bg-white"
               style={{
-                width: '150vmax',
-                height: '150vmax',
-                backgroundColor: textColor,
+                width: "150vmax",
+                height: "150vmax",
               }}
             />
-            
+
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -137,10 +134,9 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="font-light tracking-[0.2em]"
+                    className="font-light tracking-[0.2em] text-white dark:text-dark-background"
                     style={{
-                      fontSize: '2rem',
-                      color: bgColor,
+                      fontSize: "2rem",
                       fontWeight: 300,
                     }}
                   >
@@ -157,11 +153,11 @@ const MonetaLoader: React.FC<MonetaLoaderProps> = ({
 };
 
 const Loader: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [showLoader, setShowLoader] = useState(true);
 
   const handleLoadingComplete = () => {
-    console.log('Loading complete!');
+    console.log("Loading complete!");
   };
 
   const resetLoader = () => {
