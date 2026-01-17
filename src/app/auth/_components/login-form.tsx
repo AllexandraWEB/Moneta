@@ -90,7 +90,7 @@ export default function LoginForm() {
               type="submit"
               className="w-full"
               disabled={isPending}
-              variant="white"
+              variant="dark"
               size="lg"
             >
               {isPending ? "Signing in..." : "Sign in"}
@@ -134,7 +134,7 @@ export default function LoginForm() {
               Don't have an account?{" "}
               <Link
                 href="/auth/register"
-                className="text-white font-medium hover:underline"
+                className="text-dark-background dark:text-white font-medium hover:underline"
               >
                 Sign up
               </Link>
