@@ -5,7 +5,7 @@ import { ThemeToggle } from "../theme-toggle";
 
 const HeroSection = () => {
   return (
-    <div className="h-screen bg-white dark:bg-black text-black dark:text-white">
+    <div className="h-screen bg-white dark:bg-neutral-900 text-black dark:text-white">
       {/* <div className="h-screen bg-[url(/background.png)] bg-cover bg-bottom"> */}
       {/* <div className="mx-auto text-center">
         <span className="text-14-regular uppercase text-black">Home</span>
@@ -20,7 +20,7 @@ const HeroSection = () => {
           {/* Welcome Message and Name */}
           <div>
             <span className="">Welcome back,</span>
-            <h1 className="heading-5-bold">Aleksandra Tsimentarova</h1>
+            <h1 className="text-18-bold">Aleksandra Tsimentarova</h1>
           </div>
         </div>
         {/* Theme Toggle */}
@@ -40,7 +40,7 @@ const HeroSection = () => {
           </div>
         </div>
         {/* Transactions */}
-       <div className="bg-neutral-100 dark:bg-neutral-800 rounded-t-4xl -mx-4 px-4 mt-4">
+       <div className="bg-neutral-100 dark:bg-[#161616] rounded-t-4xl -mx-4 px-4 mt-4">
          <Transactions />
        </div>
       </Container>

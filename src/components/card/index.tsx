@@ -2,9 +2,9 @@ import { ArrowRight, Nfc } from "lucide-react";
 
 const Card = () => {
   return (
-    <div className="relative w-80 shrink-0 px-4 py-12 rounded-[30px] bg-neutral-900 dark:bg-neutral-100 text-white dark:text-black">
+    <div className="relative w-80 shrink-0 px-4 py-12 rounded-[30px] bg-[url(/light-theme-background.jpeg)] dark:bg-[url(/dark-theme-background.png)] bg-center bg-cover text-white dark:text-black">
       <Nfc className="absolute top-4 right-4" size={24} />
-      <img src="/card-chip.png" alt="Card Chip" className="w-10 mb-5" />
+      <img src="/chip.png" alt="Card Chip" className="w-12 mb-5" />
       <div className="flex justify-between items-end">
         {/* Left Side */}
         <div>
