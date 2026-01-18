@@ -1,7 +1,7 @@
 import Card from "../card";
-import Container from "../container";
+import Container from "../../../../../components/container";
 import Transactions from "../transactions";
-import { ThemeToggle } from "../theme-toggle";
+import { ThemeToggle } from "../../../../../components/theme-toggle";
 
 const HeroSection = () => {
   return (

@@ -1,4 +1,4 @@
-import Container from "../container";
+import Container from "../../../../../components/container";
 import TransactionTab from "../transaction-tab";
 
 const Transactions = () => {
