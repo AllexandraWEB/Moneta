@@ -5,6 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Moneta',
     short_name: 'Moneta',
     description: 'Keep track of your expenses',
+    start_url: '/',
     lang: 'en',
     categories: ['finance', 'expenses', 'business'],
     prefer_related_applications: false,
