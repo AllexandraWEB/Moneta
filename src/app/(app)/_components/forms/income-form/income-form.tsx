@@ -9,7 +9,7 @@ import {
 } from "@/src/components/ui/select";
 import { useState } from "react";
 
-const TransactionForm = () => {
+const IncomeForm = () => {
   const [amount, setAmount] = useState("0");
 
   const handleKeyPress = (value: string) => {
@@ -84,10 +84,9 @@ const TransactionForm = () => {
           />
         </SelectTrigger>
         <SelectContent className="mt-20">
-          <SelectItem value="food">Food</SelectItem>
-          <SelectItem value="transport">Transport</SelectItem>
-          <SelectItem value="shopping">Shopping</SelectItem>
-          <SelectItem value="entertainment">Entertainment</SelectItem>
+          <SelectItem value="salary">Salary</SelectItem>
+          <SelectItem value="sold-item">Sold Item</SelectItem>
+          <SelectItem value="gift">Gift</SelectItem>
         </SelectContent>
       </Select>
 
@@ -103,9 +102,12 @@ const TransactionForm = () => {
           />
         </SelectTrigger>
         <SelectContent className="mt-20">
-          <SelectItem value="cash">Cash</SelectItem>
-          <SelectItem value="bank">Bank Account</SelectItem>
-          <SelectItem value="credit">Credit Card</SelectItem>
+          <SelectItem value="aleksandra-dsk">Aleksandra DSK</SelectItem>
+          <SelectItem value="aleksandra-revolut">Aleksandra Revolut</SelectItem>
+          <SelectItem value="aleksandra-cash">Aleksandra Cash</SelectItem>
+          <SelectItem value="stoyan-uni">Stoyan Unicredit</SelectItem>
+          <SelectItem value="stoyan-revolut">Stoyan Revolut</SelectItem>
+          <SelectItem value="stoyan-cash">Stoyan Cash</SelectItem>
         </SelectContent>
       </Select>
       {/* Continue */}
@@ -118,4 +120,4 @@ const TransactionForm = () => {
   );
 };
 
-export default TransactionForm;
+export default IncomeForm;
