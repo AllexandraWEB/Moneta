@@ -29,7 +29,11 @@ const Navigation = ({ onAddExpense }: NavigationProps) => {
           onClick={onAddExpense}
           className="absolute left-1/2 -translate-x-1/2 -top-8 w-20 h-20 rounded-full bg-dark-background dark:bg-white flex items-center justify-center"
         >
-          <Send size={28} className="text-black" fill="white" color="black" />
+          <img
+            src="/icons/send.svg"
+            alt="Send Icon"
+            className="invert dark:invert-0 transition w-10"
+          />
         </button>
 
         {/* Statistics */}

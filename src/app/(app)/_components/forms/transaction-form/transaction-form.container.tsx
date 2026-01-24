@@ -16,12 +16,12 @@ const TransactionModal = ({ open, onClose }: TransactionModalProps) => {
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-black/40 dark:bg-neutral-700/30"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-background rounded-t-[55px] shadow-lg animate-slideUp">
+      <div className="relative w-full max-w-md bg-white dark:bg-neutral-900 rounded-t-[55px] shadow-lg animate-slideUp">
         {/* Header */}
         <div className="px-4 pt-6 pb-12">
           <h2 
