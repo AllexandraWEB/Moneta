@@ -1,9 +1,44 @@
+"use client";
+
 import Card from "../card";
 import Container from "../../../../../components/container";
 import Transactions from "../transactions";
 import { ThemeToggle } from "../../../../../components/theme-toggle";
+import { useState, useEffect } from "react";
+import { getWorkspaceAccounts } from "@/src/app/actions/accounts";
+import { Account } from "@/src/types/database";
+import { useWorkspace } from "@/src/contexts/WorkspaceContext";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  userName?: string;
+}
+
+const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
+  const { workspaceId } = useWorkspace();
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      setLoading(true);
+      const { data, error } = await getWorkspaceAccounts(workspaceId);
+      if (data) setAccounts(data);
+      setLoading(false);
+    };
+
+    fetchAccounts();
+  }, [workspaceId]);
+
+  // Get initials from user name
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <Container>
       <div className="h-screen bg-white dark:bg-neutral-900 text-black dark:text-white">
@@ -13,13 +48,13 @@ const HeroSection = () => {
             {/* Circle */}
             <div className="flex items-center justify-center w-15 h-15 rounded-full bg-black dark:bg-neutral-100">
               <span className="text-18-regular text-white dark:text-black">
-                AT
+                {getInitials(userName)}
               </span>
             </div>
             {/* Welcome Message and Name */}
             <div>
               <span className="">Welcome back,</span>
-              <h1 className="text-18-bold">Aleksandra Tsimentarova</h1>
+              <h1 className="text-18-bold">{userName}</h1>
             </div>
           </div>
           {/* Theme Toggle */}
@@ -33,9 +68,15 @@ const HeroSection = () => {
           {/* Cards */}
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex gap-4 pb-4">
-              {[1, 2, 3].map((card) => (
-                <Card key={card} />
-              ))}
+              {loading ? (
+                <div className="text-center w-full py-8">Loading accounts...</div>
+              ) : accounts.length === 0 ? (
+                <div className="text-center w-full py-8">No accounts yet. Create one to get started!</div>
+              ) : (
+                accounts.map((account) => (
+                  <Card key={account.id} account={account} />
+                ))
+              )}
             </div>
           </div>
           {/* Transactions */}

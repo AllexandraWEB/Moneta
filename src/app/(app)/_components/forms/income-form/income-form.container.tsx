@@ -1,16 +1,21 @@
 import { useState } from "react";
 import IncomeForm from "./income-form";
-import TransactionForm from "../../forms/transaction-form/transction-form";
+import TransactionForm from "../expense-form/expense-form";
 
 interface IncomeModalProps {
   open: boolean;
   onClose: () => void;
+  workspaceId: string;
 }
 
-const IncomeModal = ({ open, onClose }: IncomeModalProps) => {
+const IncomeModal = ({ open, onClose, workspaceId }: IncomeModalProps) => {
   const [isIncome, setIsIncome] = useState(true);
 
   if (!open) return null;
+
+  const handleSuccess = () => {
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
@@ -34,7 +39,11 @@ const IncomeModal = ({ open, onClose }: IncomeModalProps) => {
 
         {/* Content */}
         <div className="px-8 pb-6">
-          {isIncome ? <IncomeForm /> : <TransactionForm />}
+          {isIncome ? (
+            <IncomeForm workspaceId={workspaceId} onSuccess={handleSuccess} />
+          ) : (
+            <TransactionForm workspaceId={workspaceId} onSuccess={handleSuccess} />
+          )}
         </div>
       </div>
     </div>

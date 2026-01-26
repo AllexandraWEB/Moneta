@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/src/components/theme-provider";
-import NavigationWrapper from "../components/navigation-wrapper";
 import LoaderWrapper from "../components/loader-wrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -240,7 +239,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavigationWrapper />
           {children}
         </ThemeProvider>
       </body>

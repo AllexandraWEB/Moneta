@@ -7,10 +7,70 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/components/ui/select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createTransaction } from "@/src/app/actions/transactions";
+import { getWorkspaceAccounts } from "@/src/app/actions/accounts";
+import { getWorkspaceCategories } from "@/src/app/actions/categories";
+import { Account, Category } from "@/src/types/database";
 
-const TransactionForm = () => {
+interface TransactionFormProps {
+  workspaceId: string;
+  onSuccess?: () => void;
+}
+
+const TransactionForm = ({ workspaceId, onSuccess }: TransactionFormProps) => {
   const [amount, setAmount] = useState("0");
+  const [note, setNote] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedAccount, setSelectedAccount] = useState("");
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch accounts and categories
+  useEffect(() => {
+    const fetchData = async () => {
+      const [accountsRes, categoriesRes] = await Promise.all([
+        getWorkspaceAccounts(workspaceId),
+        getWorkspaceCategories(workspaceId, 'expense')
+      ]);
+
+      if (accountsRes.data) setAccounts(accountsRes.data);
+      if (categoriesRes.data) setCategories(categoriesRes.data);
+    };
+
+    fetchData();
+  }, [workspaceId]);
+
+  const handleSubmit = async () => {
+    if (!selectedAccount || !selectedCategory || parseFloat(amount) === 0) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await createTransaction({
+      workspace_id: workspaceId,
+      account_id: selectedAccount,
+      category_id: selectedCategory,
+      amount: parseFloat(amount),
+      type: 'expense',
+      note: note || undefined,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(`Error: ${error}`);
+    } else {
+      // Reset form
+      setAmount("0");
+      setNote("");
+      setSelectedCategory("");
+      setSelectedAccount("");
+      onSuccess?.();
+    }
+  };
 
   const handleKeyPress = (value: string) => {
     if (value === "back") {
@@ -69,11 +129,13 @@ const TransactionForm = () => {
       {/* Type here */}
       <input
         placeholder="Note"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
         className="w-full text-center text-gray-400 dark:text-white outline-none border-b pb-2"
       />
 
       {/* Category */}
-      <Select>
+      <Select value={selectedCategory} onValueChange={setSelectedCategory}>
         <SelectTrigger className="w-full">
           <SelectValue
             placeholder={
@@ -84,15 +146,16 @@ const TransactionForm = () => {
           />
         </SelectTrigger>
         <SelectContent className="mt-20">
-          <SelectItem value="food">Food</SelectItem>
-          <SelectItem value="transport">Transport</SelectItem>
-          <SelectItem value="shopping">Shopping</SelectItem>
-          <SelectItem value="entertainment">Entertainment</SelectItem>
+          {categories.map((category) => (
+            <SelectItem key={category.id} value={category.id}>
+              {category.icon} {category.name}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
       {/* Account */}
-      <Select>
+      <Select value={selectedAccount} onValueChange={setSelectedAccount}>
         <SelectTrigger className="w-full">
           <SelectValue
             placeholder={
@@ -103,14 +166,21 @@ const TransactionForm = () => {
           />
         </SelectTrigger>
         <SelectContent className="mt-20">
-          <SelectItem value="cash">Cash</SelectItem>
-          <SelectItem value="bank">Bank Account</SelectItem>
-          <SelectItem value="credit">Credit Card</SelectItem>
+          {accounts.map((account) => (
+            <SelectItem key={account.id} value={account.id}>
+              {account.icon} {account.name}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
       {/* Continue */}
-      <Button className="w-full" size="xl">
-        Continue
+      <Button 
+        className="w-full" 
+        size="xl"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? 'Saving...' : 'Continue'}
       </Button>
       {/* Keyboard */}
       <NumericKeypad onKeyPress={handleKeyPress} />

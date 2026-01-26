@@ -3,25 +3,23 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Navigation from "@/src/components/navigation";
-import TransactionModal from "@/src/app/(app)/_components/forms/transaction-form/transaction-form.container";
+import TransactionModal from "@/src/app/(app)/_components/forms/expense-form/expense-form.container";
+import { useWorkspace } from "@/src/contexts/WorkspaceContext";
 
 export default function NavigationWrapper() {
-  const pathname = usePathname();
   const [expenseOpen, setExpenseOpen] = useState(false);
-
-  const hiddenRoutes = ["/auth/login", "/auth/register"];
-
-  if (hiddenRoutes.includes(pathname)) {
-    return null;
-  }
+  const { workspaceId } = useWorkspace();
 
   return (
     <>
       <Navigation onAddExpense={() => setExpenseOpen(true)} />
-      <TransactionModal
-        open={expenseOpen}
-        onClose={() => setExpenseOpen(false)}
-      />
+      {workspaceId && (
+        <TransactionModal
+          open={expenseOpen}
+          onClose={() => setExpenseOpen(false)}
+          workspaceId={workspaceId}
+        />
+      )}
     </>
   );
 }
