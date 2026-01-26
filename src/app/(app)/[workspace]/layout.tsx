@@ -7,8 +7,9 @@ export default async function WorkspaceLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { workspace: string };
+  params: Promise<{ workspace: string }>;
 }) {
+  const { workspace } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 

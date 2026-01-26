@@ -81,7 +81,7 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
           </div>
           {/* Transactions */}
           <div className="bg-neutral-100 dark:bg-[#161616] rounded-t-4xl -mx-4 px-4 mt-4">
-            <Transactions />
+            <Transactions workspaceId={workspaceId} />
           </div>
         </Container>
       </div>
