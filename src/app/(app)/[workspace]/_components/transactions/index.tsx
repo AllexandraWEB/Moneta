@@ -4,6 +4,7 @@ import Container from "../../../../../components/container";
 import TransactionTab from "../transaction-tab";
 import { getWorkspaceTransactions } from "@/src/app/actions/transactions";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface TransactionsProps {
   workspaceId: string;
@@ -28,9 +29,11 @@ interface Transaction {
 }
 
 const Transactions = ({ workspaceId }: TransactionsProps) => {
+  const router = useRouter();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -45,7 +48,17 @@ const Transactions = ({ workspaceId }: TransactionsProps) => {
     };
 
     fetchTransactions();
-  }, [workspaceId]);
+  }, [workspaceId, refreshKey]);
+
+  // Listen for transaction created events
+  useEffect(() => {
+    const handleTransactionCreated = () => {
+      setRefreshKey(prev => prev + 1);
+    };
+
+    window.addEventListener('transactionCreated', handleTransactionCreated);
+    return () => window.removeEventListener('transactionCreated', handleTransactionCreated);
+  }, []);
 
   return (
     <Container>

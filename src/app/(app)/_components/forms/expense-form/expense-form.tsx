@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createTransaction } from "@/src/app/actions/transactions";
 import { getWorkspaceAccounts } from "@/src/app/actions/accounts";
 import { getWorkspaceCategories } from "@/src/app/actions/categories";
@@ -19,6 +20,7 @@ interface TransactionFormProps {
 }
 
 const TransactionForm = ({ workspaceId, onSuccess }: TransactionFormProps) => {
+  const router = useRouter();
   const [amount, setAmount] = useState("0");
   const [note, setNote] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -68,6 +70,9 @@ const TransactionForm = ({ workspaceId, onSuccess }: TransactionFormProps) => {
       setNote("");
       setSelectedCategory("");
       setSelectedAccount("");
+      // Trigger transaction list refresh
+      window.dispatchEvent(new CustomEvent('transactionCreated'));
+      router.refresh();
       onSuccess?.();
     }
   };

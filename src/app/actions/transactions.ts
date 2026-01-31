@@ -33,7 +33,7 @@ export async function createTransaction(transactionData: {
     return { data: null, error: error.message }
   }
 
-  revalidatePath('/')
+  revalidatePath('/', 'layout')
   return { data, error: null }
 }
 
@@ -112,7 +112,7 @@ export async function updateTransaction(transactionId: string, updates: {
     return { data: null, error: error.message }
   }
 
-  revalidatePath('/')
+  revalidatePath('/', 'layout')
   return { data, error: null }
 }
 
@@ -129,6 +129,6 @@ export async function deleteTransaction(transactionId: string) {
     return { error: error.message }
   }
 
-  revalidatePath('/')
+  revalidatePath('/', 'layout')
   return { error: null }
 }
