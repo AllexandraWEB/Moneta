@@ -32,9 +32,9 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
   // Get initials from user name
   const getInitials = (name: string) => {
     return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
@@ -61,17 +61,21 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
           <ThemeToggle />
         </div>
         <Container className="px-4 pt-2">
-          {/* <div className="flex flex-col space-y-4">
-          <span className="text-sm uppercase">Your current balance</span>
-          <h1 className="display-sm-bold">&euro;13,032</h1>
-        </div> */}
+          {/* <div className="flex flex-col space-y-4 pb-4">
+            <span className="text-sm uppercase">Your current balance</span>
+            <h1 className="text-7xl">&euro;13,032</h1>
+          </div> */}
           {/* Cards */}
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex gap-4 pb-4">
               {loading ? (
-                <div className="text-center w-full py-8">Loading accounts...</div>
+                <div className="text-center w-full py-8">
+                  Loading accounts...
+                </div>
               ) : accounts.length === 0 ? (
-                <div className="text-center w-full py-8">No accounts yet. Create one to get started!</div>
+                <div className="text-center w-full py-8">
+                  No accounts yet. Create one to get started!
+                </div>
               ) : (
                 accounts.map((account) => (
                   <Card key={account.id} account={account} />
@@ -80,7 +84,7 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
             </div>
           </div>
           {/* Transactions */}
-          <div className="bg-neutral-100 dark:bg-[#161616] rounded-t-4xl -mx-4 px-4 mt-4">
+          <div className="bg-neutral-100 dark:bg-[#1f1f1f] rounded-t-4xl -mx-4 px-4 mt-4">
             <Transactions workspaceId={workspaceId} />
           </div>
         </Container>

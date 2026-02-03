@@ -1,4 +1,5 @@
 import { Home, Wallet, Send, PieChart, User } from "lucide-react";
+import Link from "next/link";
 
 interface NavigationProps {
   onAddExpense: () => void;
@@ -8,10 +9,12 @@ const Navigation = ({ onAddExpense }: NavigationProps) => {
     <nav className="fixed bottom-6 left-4 right-4 bg-white/5 backdrop-blur-xl border border-white/10 px-4 py-4 z-50 rounded-[30px] shadow-2xl mx-auto max-w-xl">
       <div className="flex items-center justify-between relative">
         {/* Home */}
-        <button className="flex flex-col items-center gap-1">
-          <Home size={24} className="text-black dark:text-white/70" />
-          <span className="text-xs text-black dark:text-white/70">Home</span>
-        </button>
+        <Link href={"/"}>
+          <button className="flex flex-col items-center gap-1">
+            <Home size={24} className="text-black dark:text-white/70" />
+            <span className="text-xs text-black dark:text-white/70">Home</span>
+          </button>
+        </Link>
 
         {/* Accounts */}
         <button className="flex flex-col items-center gap-1">
@@ -45,10 +48,14 @@ const Navigation = ({ onAddExpense }: NavigationProps) => {
         </button>
 
         {/* Profile */}
-        <button className="flex flex-col items-center gap-1">
-          <User size={24} className="text-black dark:text-white/70" />
-          <span className="text-xs text-black dark:text-white/70">Profile</span>
-        </button>
+        <Link href="/account">
+          <button className="flex flex-col items-center gap-1">
+            <User size={24} className="text-black dark:text-white/70" />
+            <span className="text-xs text-black dark:text-white/70">
+              Profile
+            </span>
+          </button>
+        </Link>
       </div>
     </nav>
   );
