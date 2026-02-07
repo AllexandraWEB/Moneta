@@ -45,8 +45,8 @@ const IncomeForm = ({ workspaceId, onSuccess }: IncomeFormProps) => {
   }, [workspaceId]);
 
   const handleSubmit = async () => {
-    if (!selectedAccount || !selectedCategory || parseFloat(amount) === 0) {
-      alert('Please fill in all fields');
+    if (!selectedAccount || !selectedCategory || parseFloat(amount) === 0 || !note.trim()) {
+      alert('Please fill in all fields including a note');
       return;
     }
 
@@ -133,10 +133,11 @@ const IncomeForm = ({ workspaceId, onSuccess }: IncomeFormProps) => {
 
       {/* Type here */}
       <input
-        placeholder="Note"
+        placeholder="Note (required)"
         value={note}
         onChange={(e) => setNote(e.target.value)}
         className="w-full text-center text-gray-400 dark:text-white outline-none border-b pb-2"
+        required
       />
 
       {/* Category */}
