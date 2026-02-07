@@ -1,4 +1,4 @@
-import { Croissant } from "lucide-react";
+import { getCategoryIcon } from '@/src/lib/category-icons';
 
 interface TransactionTabProps {
   transaction: {
@@ -30,18 +30,20 @@ const TransactionTab = ({ transaction }: TransactionTabProps) => {
     year: 'numeric'
   });
 
+  const CategoryIcon = getCategoryIcon(transaction.categories?.name);
+
   return (
     <div className="w-full flex gap-3 items-center justify-between bg-white dark:bg-neutral-800 rounded-2xl py-4 px-4">
       <div className="flex gap-3 items-center">
         {/* Circle Icon */}
         <div className="w-13 h-13 flex items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-700">
-          <Croissant color="black" className="dark:text-white" />
+          <CategoryIcon className="w-5 h-5 text-black dark:text-white" />
         </div>
         {/* Category and Card Type */}
         <div>
           <h1 className="text-14-regular">{transaction.accounts?.name || 'Unknown Account'}</h1>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            {transaction.categories?.name || 'Uncategorized'}
+            {transaction.categories?.name || 'Uncategorized'} | {transaction.note || 'No note'}
           </p>
         </div>
       </div>
