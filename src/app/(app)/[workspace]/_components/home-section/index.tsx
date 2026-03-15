@@ -57,8 +57,6 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
               <h1 className="text-18-bold">{userName}</h1>
             </div>
           </div>
-          {/* Theme Toggle */}
-          <ThemeToggle />
         </div>
         <Container className="px-4 pt-2">
           {/* <div className="flex flex-col space-y-4 pb-4">
