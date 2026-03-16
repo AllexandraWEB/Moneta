@@ -3,7 +3,6 @@
 import Card from "../card";
 import Container from "../../../../../components/container";
 import Transactions from "../transactions";
-import { ThemeToggle } from "../../../../../components/theme-toggle";
 import { useState, useEffect } from "react";
 import { getWorkspaceAccounts } from "@/src/app/actions/accounts";
 import { Account } from "@/src/types/database";
