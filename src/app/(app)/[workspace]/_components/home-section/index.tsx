@@ -20,12 +20,28 @@ const HeroSection = ({ userName = "User" }: HeroSectionProps) => {
   useEffect(() => {
     const fetchAccounts = async () => {
       setLoading(true);
-      const { data, error } = await getWorkspaceAccounts(workspaceId);
+      const { data } = await getWorkspaceAccounts(workspaceId);
       if (data) setAccounts(data);
       setLoading(false);
     };
 
     fetchAccounts();
+
+    const handleTransactionCreated = () => {
+      fetchAccounts();
+    };
+
+    window.addEventListener(
+      "transactionCreated",
+      handleTransactionCreated
+    );
+
+    return () => {
+      window.removeEventListener(
+        "transactionCreated",
+        handleTransactionCreated
+      );
+    };
   }, [workspaceId]);
 
   // Get initials from user name

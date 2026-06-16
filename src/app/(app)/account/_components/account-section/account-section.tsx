@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "@/src/components/container";
 
 import { useEffect, useState } from "react";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/src/components/ui/switch";
 import { Button } from "@/src/components/ui/button";
 import {
   ChevronLeft,
