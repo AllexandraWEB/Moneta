@@ -33,6 +33,34 @@ export async function createTransaction(transactionData: {
     return { data: null, error: error.message }
   }
 
+  // Update account balance based on transaction type
+  try {
+    const { data: accountData, error: accountError } = await supabase
+      .from('accounts')
+      .select('id, balance')
+      .eq('id', transactionData.account_id)
+      .single()
+
+    if (accountError) {
+      console.error('Error fetching account for balance update:', accountError)
+    } else if (accountData) {
+      const currentBalance = Number(accountData.balance || 0)
+      const delta = transactionData.type === 'income' ? Number(transactionData.amount) : -Number(transactionData.amount)
+      const newBalance = currentBalance + delta
+
+      const { error: updateAccountError } = await supabase
+        .from('accounts')
+        .update({ balance: newBalance })
+        .eq('id', transactionData.account_id)
+
+      if (updateAccountError) {
+        console.error('Error updating account balance:', updateAccountError)
+      }
+    }
+  } catch (e) {
+    console.error('Unexpected error updating account balance:', e)
+  }
+
   revalidatePath('/', 'layout')
   return { data, error: null }
 }
@@ -112,12 +140,85 @@ export async function updateTransaction(transactionId: string, updates: {
     return { data: null, error: error.message }
   }
 
+  // If account or amount/type changed, adjust balances accordingly
+  try {
+    // fetch original transaction to compute delta
+    const { data: original, error: origErr } = await supabase
+      .from('transactions')
+      .select('id, account_id, amount, type')
+      .eq('id', transactionId)
+      .single()
+
+    if (!origErr && original) {
+      const oldAccountId = original.account_id
+      const oldAmount = Number(original.amount)
+      const oldType = original.type
+
+      const newAccountId = updates.account_id ?? oldAccountId
+      const newAmount = updates.amount !== undefined ? Number(updates.amount) : oldAmount
+      const newType = updates.type ?? oldType
+
+      // If account changed, reverse old on old account and apply new on new account
+      const adjust = async (accountId: string, delta: number) => {
+        const { data: acc, error: accErr } = await supabase
+          .from('accounts')
+          .select('id, balance')
+          .eq('id', accountId)
+          .single()
+        if (!accErr && acc) {
+          const current = Number(acc.balance || 0)
+          await supabase.from('accounts').update({ balance: current + delta }).eq('id', accountId)
+        }
+      }
+
+      const oldDelta = oldType === 'income' ? oldAmount : -oldAmount
+      const newDelta = newType === 'income' ? newAmount : -newAmount
+
+      if (oldAccountId !== newAccountId) {
+        await adjust(oldAccountId, -oldDelta)
+        await adjust(newAccountId, newDelta)
+      } else {
+        const net = newDelta - oldDelta
+        if (net !== 0) await adjust(newAccountId, net)
+      }
+    }
+  } catch (e) {
+    console.error('Error adjusting balances after transaction update:', e)
+  }
+
   revalidatePath('/', 'layout')
   return { data, error: null }
 }
 
 export async function deleteTransaction(transactionId: string) {
   const supabase = await createClient()
+
+  // fetch transaction to reverse its effect on account balance
+  try {
+    const { data: transaction, error: tErr } = await supabase
+      .from('transactions')
+      .select('id, account_id, amount, type')
+      .eq('id', transactionId)
+      .single()
+
+    if (tErr) {
+      console.error('Error fetching transaction before delete:', tErr)
+    } else if (transaction) {
+      const delta = transaction.type === 'income' ? -Number(transaction.amount) : Number(transaction.amount)
+      const { data: acc, error: accErr } = await supabase
+        .from('accounts')
+        .select('id, balance')
+        .eq('id', transaction.account_id)
+        .single()
+
+      if (!accErr && acc) {
+        const current = Number(acc.balance || 0)
+        await supabase.from('accounts').update({ balance: current + delta }).eq('id', acc.id)
+      }
+    }
+  } catch (e) {
+    console.error('Unexpected error while reversing balance on delete:', e)
+  }
 
   const { error } = await supabase
     .from('transactions')
