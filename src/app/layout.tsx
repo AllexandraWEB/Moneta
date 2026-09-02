@@ -17,8 +17,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://moneta-six.vercel.app"),
   title: "Moneta",
-  description: "Track your expenses the smart way.",
+  description: "Private personal finance tracking for expenses, budgets, and monthly cash flow.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+  },
   icons: {
     icon: [{ url: "/favicon/favicon-196.png", sizes: "196x196", type: "image/png" }],
     apple: [{ url: "/favicon/apple-icon-180.png" }],
@@ -209,26 +215,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(
-                    function(registration) {
-                      console.log('ServiceWorker registration successful');
-                    },
-                    function(err) {
-                      console.log('ServiceWorker registration failed: ', err);
-                    }
-                  );
-                });
-              }
-            `,
-          }}
-        />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
