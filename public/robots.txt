@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# This is a private application for personal use.
+# Search engines should not index or crawl this site.

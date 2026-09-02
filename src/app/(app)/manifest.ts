@@ -4,10 +4,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Moneta',
     short_name: 'Moneta',
-    description: 'Keep track of your expenses',
+    description: 'Private personal finance tracking for expenses, budgets, and cash flow.',
     start_url: '/',
+    scope: '/',
     lang: 'en',
-    categories: ['finance', 'expenses', 'business'],
+    categories: ['finance', 'productivity'],
     prefer_related_applications: false,
     icons: [
       {
@@ -25,5 +26,6 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#ffffff',
     background_color: '#ffffff',
     display: 'standalone',
+    id: '/moneta',
   }
 }
