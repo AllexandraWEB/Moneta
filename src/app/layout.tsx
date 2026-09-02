@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://moneta-six.vercel.app"),
+  metadataBase: new URL("https://moneta-personal-tracker.vercel.app"),
   title: "Moneta",
   description: "Private personal finance tracking for expenses, budgets, and monthly cash flow.",
   robots: {
